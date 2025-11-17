@@ -19,7 +19,7 @@ function RatingStarsComponent({
   rating,
   reviewsCount,
   size = "md",
-}: RatingStarsProps): JSX.Element {
+}: RatingStarsProps) {
   const clampedRating = Math.min(Math.max(rating, 0), MAX_STARS);
   const starClassName =
     size === "sm" ? "h-4 w-4" : "h-5 w-5";

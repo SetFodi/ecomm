@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "გაეცანი დემო მაღაზიის პროდუქტებს: ავეჯი, ელექტრონიკა, დიზაინის აქსესუარები და სხვა. ფილტრი, დალაგება და სწრაფი ძებნა ერთ სივრცეში.",
 };
 
-export default function DemoStorePage(): JSX.Element {
+export default function DemoStorePage() {
   return <ProductListingClient products={products} />;
 }
 

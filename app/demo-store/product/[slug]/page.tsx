@@ -1,4 +1,3 @@
-import type { JSX } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Product } from "@/types/store";
@@ -69,7 +68,7 @@ export async function generateMetadata(
 
 export default async function ProductPage({
   params,
-}: ProductPageProps): Promise<JSX.Element> {
+}: ProductPageProps) {
   const { slug } = await params;
   const product = getProductBySlug(decodeURIComponent(slug));
 

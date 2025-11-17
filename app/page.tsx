@@ -1,4 +1,3 @@
-import type { JSX } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { products } from "@/app/demo-store/_data/products";
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
     "აღმოაჩინე ხარისხიანი პროდუქცია თანამედროვე სახლსა და სამუშაო სივრცისთვის.精选 შეთავაზებები და კატალოგი.",
 };
 
-export default function Home(): JSX.Element {
+export default function Home() {
   const featured = products.slice(0, 6);
 
   return (

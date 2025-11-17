@@ -10,7 +10,7 @@ export function SearchBar({
   value,
   onChange,
   placeholder = "ძებნა პროდუქტებში...",
-}: SearchBarProps): JSX.Element {
+}: SearchBarProps) {
   return (
     <div className="relative">
       <input

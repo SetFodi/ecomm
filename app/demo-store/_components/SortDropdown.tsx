@@ -17,7 +17,7 @@ const OPTIONS: Array<{ value: SortOption; label: string }> = [
 export function SortDropdown({
   value,
   onChange,
-}: SortDropdownProps): JSX.Element {
+}: SortDropdownProps) {
   return (
     <label className="inline-flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
       <span>დალაგება:</span>

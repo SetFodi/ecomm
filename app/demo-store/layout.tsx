@@ -11,7 +11,7 @@ export default function DemoStoreLayout({
   children,
 }: {
   children: ReactNode;
-}): JSX.Element {
+}) {
   return <>{children}</>;
 }
 

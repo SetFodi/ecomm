@@ -1,12 +1,10 @@
-import type { JSX } from "react";
-
 export const metadata = {
   title: "დახმარება და შეკითხვები – ონლაინ მაღაზია",
   description:
     "კითხვები მიწოდებაზე, დაბრუნებაზე და დემო შეკვეთებზე. გაიგე როგორ მუშაობს ეს საცდელი ონლაინ მაღაზია.",
 };
 
-export default function HelpPage(): JSX.Element {
+export default function HelpPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6 py-4">
       <header className="space-y-2">

@@ -77,7 +77,7 @@ function saveCartToStorage(state: CartState): void {
   }
 }
 
-export function CartProvider({ children }: { children: ReactNode }): JSX.Element {
+export function CartProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<CartState>(initialState);
   const [hasHydrated, setHasHydrated] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);

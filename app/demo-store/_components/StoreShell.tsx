@@ -13,7 +13,7 @@ interface StoreShellProps {
   children: ReactNode;
 }
 
-export function StoreShell({ children }: StoreShellProps): JSX.Element {
+export function StoreShell({ children }: StoreShellProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {

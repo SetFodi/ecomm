@@ -1,6 +1,5 @@
- "use client";
+"use client";
 
-import type { JSX } from "react";
 import { useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,7 +21,7 @@ export function SearchOverlay({
   onChange,
   onClose,
   products,
-}: SearchOverlayProps): JSX.Element {
+}: SearchOverlayProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {

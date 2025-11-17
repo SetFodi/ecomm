@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import type { JSX } from "react";
 import { useCart } from "@/lib/store/cart-context";
 import { formatPrice } from "@/lib/store/format";
 
@@ -12,7 +11,7 @@ interface SuccessSummaryProps {
 
 export function SuccessSummary({
   orderId: initialOrderId,
-}: SuccessSummaryProps): JSX.Element {
+}: SuccessSummaryProps) {
   const { items, total } = useCart();
   const [orderId, setOrderId] = useState<string | undefined>(initialOrderId);
 

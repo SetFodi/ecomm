@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "შეავსე მარტივი დემო შეკვეთის ფორმა: სახელი, გვარი, ელფოსტა, ტელეფონი და მისამართი. გადახდა რეალურად არ სრულდება.",
 };
 
-export default function CheckoutPage(): JSX.Element {
+export default function CheckoutPage() {
   return <CheckoutForm />;
 }
 

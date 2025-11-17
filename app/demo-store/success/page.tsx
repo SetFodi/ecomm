@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function SuccessPage({
   searchParams,
-}: SuccessPageProps): JSX.Element {
+}: SuccessPageProps) {
   const orderId = searchParams?.order;
 
   return <SuccessSummary orderId={orderId} />;
