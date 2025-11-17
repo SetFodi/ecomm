@@ -2,12 +2,13 @@
 
 import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import type { Product } from "@/types/store";
 import { ProductGrid } from "./ProductGrid";
-import { SearchBar } from "./SearchBar";
 import { SortDropdown, type SortOption } from "./SortDropdown";
 import { Filters, type FiltersState } from "./Filters";
 import { Pagination } from "./Pagination";
+import { SearchOverlay } from "./SearchOverlay";
 
 interface ProductListingClientProps {
   products: Product[];
@@ -59,6 +60,7 @@ export function ProductListingClient({
   });
   const [page, setPage] = useState<number>(1);
   const [showFiltersMobile, setShowFiltersMobile] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   const filteredAndSorted = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -153,8 +155,21 @@ export function ProductListingClient({
   return (
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="w-full sm:max-w-lg lg:max-w-xl">
-          <SearchBar value={search} onChange={handleSearchChange} />
+        <div className="w-full sm:max-w-xs">
+          <button
+            type="button"
+            onClick={() => setIsSearchOpen(true)}
+            className="flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-500 shadow-sm transition hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-primary-400 dark:hover:text-primary-200"
+          >
+            <span className="inline-flex items-center gap-2">
+              <HiMiniMagnifyingGlass className="h-3.5 w-3.5" />
+              <span>ძებნა პროდუქტებში...</span>
+            </span>
+            <span className="hidden items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] text-slate-400 sm:inline-flex dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              <span>⌘</span>
+              <span>K</span>
+            </span>
+          </button>
         </div>
         <div className="flex shrink-0 items-center justify-between gap-3 sm:justify-end">
           <SortDropdown value={sort} onChange={handleSortChange} />
@@ -223,6 +238,14 @@ export function ProductListingClient({
           />
         </div>
       </div>
+
+      <SearchOverlay
+        open={isSearchOpen}
+        value={search}
+        onChange={handleSearchChange}
+        onClose={() => setIsSearchOpen(false)}
+        products={products}
+      />
     </div>
   );
 }

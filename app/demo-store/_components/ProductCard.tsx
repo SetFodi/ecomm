@@ -1,3 +1,6 @@
+"use client";
+
+import type { JSX } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { memo } from "react";
@@ -35,7 +38,7 @@ function ProductCardComponent({ product }: ProductCardProps): JSX.Element {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:ring-slate-50/5"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:ring-slate-50/5"
     >
       <Link
         href={`/product/${product.slug}`}
@@ -71,24 +74,30 @@ function ProductCardComponent({ product }: ProductCardProps): JSX.Element {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col gap-3 px-4 pb-4 pt-3">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 space-y-1">
-            <Link
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
+        <div className="space-y-2">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 space-y-1">
+              <Link
                 href={`/product/${product.slug}`}
-              className="line-clamp-2 text-sm font-semibold text-slate-900 transition group-hover:text-primary-700 dark:text-slate-50 dark:group-hover:text-primary-300"
-            >
-              {product.title}
-            </Link>
-            <p className="line-clamp-2 text-xs text-slate-500 dark:text-slate-400">
-              {product.shortDescription}
-            </p>
+                className="line-clamp-2 text-sm font-semibold text-slate-900 transition group-hover:text-primary-700 dark:text-slate-50 dark:group-hover:text-primary-300"
+              >
+                {product.title}
+              </Link>
+              <p className="line-clamp-2 text-xs text-slate-500 dark:text-slate-400">
+                {product.shortDescription}
+              </p>
+            </div>
           </div>
+
+          <RatingStars
+            rating={product.rating}
+            reviewsCount={product.reviewsCount}
+            size="sm"
+          />
         </div>
 
-        <RatingStars rating={product.rating} reviewsCount={product.reviewsCount} size="sm" />
-
-        <div className="mt-auto flex items-center justify-between gap-2">
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
           <div className="flex flex-col">
             <div className="flex items-baseline gap-2">
               <span className="text-sm font-semibold text-slate-900 dark:text-slate-50">

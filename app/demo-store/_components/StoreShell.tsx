@@ -1,7 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { HiMiniMoon, HiMiniSun } from "react-icons/hi2";
 import { CartProvider } from "@/lib/store/cart-context";
 import { MiniCartButton } from "./MiniCartButton";
 import { CartDrawer } from "./CartDrawer";
@@ -12,6 +14,43 @@ interface StoreShellProps {
 }
 
 export function StoreShell({ children }: StoreShellProps): JSX.Element {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const stored = window.localStorage.getItem("ecommerce-theme");
+    if (stored === "light" || stored === "dark") {
+      setTheme(stored);
+      return;
+    }
+
+    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;
+    setTheme(prefersDark ? "dark" : "light");
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const root = document.documentElement;
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    try {
+      window.localStorage.setItem("ecommerce-theme", theme);
+    } catch {
+      // localStorage might be unavailable – safe to ignore.
+    }
+  }, [theme]);
+
+  const toggleTheme = (): void => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  };
+
   return (
     <CartProvider>
       <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-slate-50">
@@ -35,7 +74,7 @@ export function StoreShell({ children }: StoreShellProps): JSX.Element {
                   მთავარი
                 </Link>
                 <Link
-                  href="/"
+                  href="/catalog"
                   className="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800"
                 >
                   კატალოგი
@@ -55,6 +94,18 @@ export function StoreShell({ children }: StoreShellProps): JSX.Element {
               </nav>
             </div>
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                aria-label={theme === "dark" ? "დინამიური რეჟიმი – გაანათე" : "დინამიური რეჟიმი – ჩააქრე"}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-700 shadow-sm transition hover:border-primary-400 hover:text-primary-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:border-primary-400 dark:hover:text-primary-200"
+              >
+                {theme === "dark" ? (
+                  <HiMiniSun className="h-4 w-4" />
+                ) : (
+                  <HiMiniMoon className="h-4 w-4" />
+                )}
+              </button>
               <MiniCartButton />
             </div>
           </div>

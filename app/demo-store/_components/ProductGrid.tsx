@@ -22,7 +22,7 @@ function ProductGridComponent({ products }: ProductGridProps): JSX.Element {
 
   return (
     <div
-      className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3"
       aria-live="polite"
       aria-label="პროდუქტების სია"
     >
