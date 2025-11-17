@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import type { JSX } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Product } from "@/types/store";
 import { ProductGrid } from "./ProductGrid";
 import { SearchBar } from "./SearchBar";
@@ -123,6 +124,12 @@ export function ProductListingClient({
 
   const activeFiltersCount = countActiveFilters(filters);
 
+  useEffect(() => {
+    // Simple dev-time debug to understand pagination behaviour.
+    // eslint-disable-next-line no-console
+    console.log("[ProductListingClient] page:", page, "totalPages:", totalPages);
+  }, [page, totalPages]);
+
   const handleFiltersChange = (next: FiltersState): void => {
     setFilters(next);
     setPage(1);
@@ -146,7 +153,7 @@ export function ProductListingClient({
   return (
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="w-full sm:max-w-xl lg:max-w-2xl">
+        <div className="w-full sm:max-w-lg lg:max-w-xl">
           <SearchBar value={search} onChange={handleSearchChange} />
         </div>
         <div className="flex shrink-0 items-center justify-between gap-3 sm:justify-end">
