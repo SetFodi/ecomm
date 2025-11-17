@@ -1,6 +1,5 @@
 "use client";
 
-import type { JSX } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { memo } from "react";
@@ -20,7 +19,7 @@ const imageMotion = {
   animate: { opacity: 1, y: 0 },
 };
 
-function ProductCardComponent({ product }: ProductCardProps): JSX.Element {
+function ProductCardComponent({ product }: ProductCardProps) {
   const { addItem, openCart } = useCart();
 
   const handleAddToCart = (): void => {

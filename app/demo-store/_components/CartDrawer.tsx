@@ -17,7 +17,7 @@ const panelVariants = {
   visible: { x: 0 },
 };
 
-export function CartDrawer(): JSX.Element {
+export function CartDrawer() {
   const {
     items,
     subtotal,

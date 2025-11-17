@@ -6,7 +6,7 @@ interface ProductGridProps {
   products: Product[];
 }
 
-function ProductGridComponent({ products }: ProductGridProps): JSX.Element {
+function ProductGridComponent({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 p-10 text-center dark:border-slate-700 dark:bg-slate-900/60">

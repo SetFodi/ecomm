@@ -1,6 +1,5 @@
 "use client";
 
-import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import type { Product } from "@/types/store";
@@ -47,7 +46,7 @@ function countActiveFilters(filters: FiltersState): number {
 
 export function ProductListingClient({
   products,
-}: ProductListingClientProps): JSX.Element {
+}: ProductListingClientProps) {
   const priceBounds = useMemo(() => getPriceBounds(products), [products]);
 
   const [search, setSearch] = useState<string>("");

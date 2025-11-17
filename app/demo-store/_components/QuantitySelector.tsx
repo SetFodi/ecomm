@@ -16,7 +16,7 @@ function QuantitySelectorComponent({
   min = 1,
   max = 99,
   onChange,
-}: QuantitySelectorProps): JSX.Element {
+}: QuantitySelectorProps) {
   const handleDecrease = (): void => {
     const next = clamp(value - 1, min, max);
     onChange(next);

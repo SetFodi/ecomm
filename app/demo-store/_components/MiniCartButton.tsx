@@ -9,7 +9,7 @@ interface MiniCartButtonProps {
 
 export function MiniCartButton({
   variant = "primary",
-}: MiniCartButtonProps): JSX.Element {
+}: MiniCartButtonProps) {
   const { itemCount, openCart } = useCart();
 
   const isEmpty = itemCount === 0;

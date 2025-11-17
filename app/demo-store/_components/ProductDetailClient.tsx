@@ -20,7 +20,7 @@ interface ProductDetailClientProps {
 export function ProductDetailClient({
   product,
   relatedProducts,
-}: ProductDetailClientProps): JSX.Element {
+}: ProductDetailClientProps) {
   const { addItem, openCart } = useCart();
   const [quantity, setQuantity] = useState<number>(1);
 

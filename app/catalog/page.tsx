@@ -1,4 +1,3 @@
-import type { JSX } from "react";
 import type { Metadata } from "next";
 import { products } from "@/app/demo-store/_data/products";
 import { ProductListingClient } from "@/app/demo-store/_components/ProductListingClient";
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
     "დახვეწილი კატალოგი ყველა პროდუქტით: გაფილტრე კატეგორიების, ფასის და მარაგის მიხედვით და იპოვე ზუსტად რაც გჭირდება.",
 };
 
-export default function CatalogPage(): JSX.Element {
+export default function CatalogPage() {
   return (
     <div className="space-y-5">
       <header className="flex flex-col gap-2 rounded-3xl border border-slate-200 bg-white/80 px-4 py-4 shadow-sm dark:border-slate-800 dark:bg-slate-950/80 sm:flex-row sm:items-center sm:justify-between sm:px-5">

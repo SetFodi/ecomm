@@ -30,7 +30,7 @@ export function Filters({
   value,
   onChange,
   priceBounds,
-}: FiltersProps): JSX.Element {
+}: FiltersProps) {
   const handleCategoryChange = (category: ProductCategory | "ყველა"): void => {
     onChange({
       ...value,

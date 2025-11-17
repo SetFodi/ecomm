@@ -11,7 +11,7 @@ interface ProductGalleryProps {
 export function ProductGallery({
   title,
   images,
-}: ProductGalleryProps): JSX.Element {
+}: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const safeImages = images.length > 0 ? images : ["/images/furniture-1.svg"];

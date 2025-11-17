@@ -8,7 +8,7 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
-}: PaginationProps): JSX.Element | null {
+}: PaginationProps) {
   if (totalPages <= 1) {
     return null;
   }

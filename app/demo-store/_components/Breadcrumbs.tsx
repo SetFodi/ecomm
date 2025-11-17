@@ -14,7 +14,7 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({
   category,
   productTitle,
-}: BreadcrumbsProps): JSX.Element {
+}: BreadcrumbsProps) {
   const crumbs: Crumb[] = [
     { label: "მაღაზია", href: "/" },
   ];

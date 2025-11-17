@@ -21,7 +21,7 @@ const initialFormState: CheckoutFormState = {
   address: "",
 };
 
-export function CheckoutForm(): JSX.Element {
+export function CheckoutForm() {
   const router = useRouter();
   const { items, subtotal, shipping, total } = useCart();
   const [form, setForm] = useState<CheckoutFormState>(initialFormState);
