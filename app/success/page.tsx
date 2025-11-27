@@ -1,4 +1,5 @@
-export { metadata } from "@/app/demo-store/success/page";
-export { default } from "@/app/demo-store/success/page";
+import { redirect } from "next/navigation";
 
-
+export default function SuccessPage() {
+  redirect("/demo-store/success");
+}

@@ -1,49 +1,35 @@
 "use client";
 
-import { HiMiniShoppingCart } from "react-icons/hi2";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/store/cart-context";
 
-interface MiniCartButtonProps {
-  variant?: "primary" | "ghost";
-}
-
-export function MiniCartButton({
-  variant = "primary",
-}: MiniCartButtonProps) {
+export function MiniCartButton() {
   const { itemCount, openCart } = useCart();
 
   const isEmpty = itemCount === 0;
-
-  const baseClasses =
-    "relative inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-
-  const variantClasses =
-    variant === "primary"
-      ? "bg-primary-600 text-white shadow-sm hover:bg-primary-700 active:scale-[0.98] dark:bg-primary-500 dark:hover:bg-primary-400"
-      : "border border-slate-200 bg-white text-slate-800 hover:border-primary-300 hover:text-primary-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-primary-400 dark:hover:text-primary-200";
 
   return (
     <button
       type="button"
       onClick={openCart}
-      aria-label="კალათის გახსნა"
-      className={`${baseClasses} ${variantClasses}`}
+      aria-label={`კალათის გახსნა, ${itemCount} ნივთი`}
+      className="group relative w-10 h-10 rounded-xl flex items-center justify-center text-charcoal-600 dark:text-charcoal-300 hover:text-charcoal-900 dark:hover:text-cream-50 hover:bg-charcoal-100/50 dark:hover:bg-charcoal-800/50 transition-all"
     >
-      <HiMiniShoppingCart
-        className="h-4 w-4"
-        aria-hidden="true"
-      />
-      <span>კალათა</span>
-      <span
-        className={`flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-accent-400 px-1 text-[11px] font-bold text-slate-900 shadow-sm ${
-          isEmpty ? "opacity-60" : ""
-        }`}
-        aria-label={`პროდუქტების რაოდენობა: ${itemCount}`}
-      >
-        {itemCount}
-      </span>
+      <HiOutlineShoppingBag className="w-5 h-5" />
+      
+      <AnimatePresence>
+        {!isEmpty && (
+          <motion.span
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-[10px] font-semibold bg-terracotta-500 text-white rounded-full shadow-sm"
+          >
+            {itemCount > 9 ? "9+" : itemCount}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </button>
   );
 }
-
-

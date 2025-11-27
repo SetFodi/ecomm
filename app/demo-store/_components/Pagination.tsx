@@ -1,60 +1,78 @@
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi2";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 }
 
-export function Pagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PaginationProps) {
-  if (totalPages <= 1) {
-    return null;
-  }
+export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  if (totalPages <= 1) return null;
 
   const handlePrevious = (): void => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
+    if (currentPage > 1) onPageChange(currentPage - 1);
   };
 
   const handleNext = (): void => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
-  const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+  const getVisiblePages = () => {
+    const pages: (number | "...")[] = [];
+    const delta = 1;
+    
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - delta && i <= currentPage + delta)
+      ) {
+        pages.push(i);
+      } else if (pages[pages.length - 1] !== "...") {
+        pages.push("...");
+      }
+    }
+    return pages;
+  };
+
+  const pages = getVisiblePages();
 
   return (
     <nav
       aria-label="გვერდების ნავიგაცია"
-      className="mt-6 flex items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-300"
+      className="flex items-center justify-center gap-2 py-8"
     >
       <button
         type="button"
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 font-medium shadow-sm transition hover:border-primary-400 hover:text-primary-700 disabled:cursor-not-allowed disabled:border-slate-100 disabled:text-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-primary-400 dark:hover:text-primary-200 dark:disabled:border-slate-800 dark:disabled:text-slate-500"
+        className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium text-charcoal-600 dark:text-charcoal-300 bg-cream-100 dark:bg-charcoal-800 rounded-xl hover:bg-cream-200 dark:hover:bg-charcoal-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        წინა
+        <HiOutlineChevronLeft className="w-4 h-4" />
+        <span className="hidden sm:inline">წინა</span>
       </button>
 
       <div className="flex items-center gap-1">
-        {pages.map((page) => {
-          const isActive = page === currentPage;
+        {pages.map((page, index) => {
+          if (page === "...") {
+            return (
+              <span key={`ellipsis-${index}`} className="w-10 text-center text-charcoal-400 dark:text-charcoal-500">
+                ...
+              </span>
+            );
+          }
 
+          const isActive = page === currentPage;
           return (
             <button
               key={page}
               type="button"
               onClick={() => onPageChange(page)}
               aria-current={isActive ? "page" : undefined}
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold transition ${
+              className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-primary-600 text-white shadow-sm dark:bg-primary-500"
-                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                  ? "bg-charcoal-900 dark:bg-cream-100 text-cream-50 dark:text-charcoal-900 shadow-md"
+                  : "text-charcoal-600 dark:text-charcoal-300 hover:bg-cream-200 dark:hover:bg-charcoal-800"
               }`}
             >
               {page}
@@ -67,12 +85,11 @@ export function Pagination({
         type="button"
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 font-medium shadow-sm transition hover:border-primary-400 hover:text-primary-700 disabled:cursor-not-allowed disabled:border-slate-100 disabled:text-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-primary-400 dark:hover:text-primary-200 dark:disabled:border-slate-800 dark:disabled:text-slate-500"
+        className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium text-charcoal-600 dark:text-charcoal-300 bg-cream-100 dark:bg-charcoal-800 rounded-xl hover:bg-cream-200 dark:hover:bg-charcoal-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        შემდეგი
+        <span className="hidden sm:inline">შემდეგი</span>
+        <HiOutlineChevronRight className="w-4 h-4" />
       </button>
     </nav>
   );
 }
-
-

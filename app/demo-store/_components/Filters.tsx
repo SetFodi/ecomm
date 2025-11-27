@@ -22,64 +22,47 @@ const CATEGORY_LABELS: Array<{ value: ProductCategory | "ყველა"; label
   { value: "ყველა", label: "ყველა" },
   { value: "ავეჯი", label: "ავეჯი" },
   { value: "ელექტრონიკა", label: "ელექტრონიკა" },
-  { value: "დისაინი", label: "დისაინი" },
+  { value: "დისაინი", label: "დიზაინი" },
   { value: "აქსესუარები", label: "აქსესუარები" },
 ];
 
-export function Filters({
-  value,
-  onChange,
-  priceBounds,
-}: FiltersProps) {
+export function Filters({ value, onChange, priceBounds }: FiltersProps) {
   const handleCategoryChange = (category: ProductCategory | "ყველა"): void => {
-    onChange({
-      ...value,
-      category,
-    });
+    onChange({ ...value, category });
   };
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const next = Number(event.target.value);
-    onChange({
-      ...value,
-      minPrice: Math.min(next, value.maxPrice),
-    });
+    onChange({ ...value, minPrice: Math.min(next, value.maxPrice) });
   };
 
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const next = Number(event.target.value);
-    onChange({
-      ...value,
-      maxPrice: Math.max(next, value.minPrice),
-    });
+    onChange({ ...value, maxPrice: Math.max(next, value.minPrice) });
   };
 
   const handleInStockToggle = (): void => {
-    onChange({
-      ...value,
-      inStockOnly: !value.inStockOnly,
-    });
+    onChange({ ...value, inStockOnly: !value.inStockOnly });
   };
 
   return (
     <aside aria-label="ფილტრები" className="space-y-6">
       <section>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-charcoal-500 dark:text-charcoal-400">
           კატეგორია
         </h3>
         <div className="flex flex-wrap gap-2">
           {CATEGORY_LABELS.map((category) => {
             const isActive = value.category === category.value;
-
             return (
               <button
                 key={category.value}
                 type="button"
                 onClick={() => handleCategoryChange(category.value)}
-                className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition ${
+                className={`inline-flex items-center px-4 py-2 text-xs font-medium rounded-xl transition-all ${
                   isActive
-                    ? "border-primary-500 bg-primary-50 text-primary-700 shadow-sm dark:border-primary-400 dark:bg-primary-500/10 dark:text-primary-200"
-                    : "border-slate-200 bg-white text-slate-600 hover:border-primary-300 hover:text-primary-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-primary-400 dark:hover:text-primary-200"
+                    ? "bg-charcoal-900 dark:bg-cream-100 text-cream-50 dark:text-charcoal-900 shadow-md"
+                    : "bg-cream-200/50 dark:bg-charcoal-800/50 text-charcoal-600 dark:text-charcoal-300 hover:bg-cream-300/50 dark:hover:bg-charcoal-700/50"
                 }`}
               >
                 {category.label}
@@ -90,15 +73,16 @@ export function Filters({
       </section>
 
       <section>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-charcoal-500 dark:text-charcoal-400">
           ფასის დიაპაზონი
         </h3>
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <label className="mb-1 block text-[11px] text-slate-500 dark:text-slate-400">
-                მინ.
-              </label>
+        <div className="space-y-4">
+          <div className="space-y-3">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-[11px] text-charcoal-500 dark:text-charcoal-400">მინიმალური</label>
+                <span className="text-xs font-medium text-charcoal-700 dark:text-cream-200">{Math.round(value.minPrice)} ₾</span>
+              </div>
               <input
                 type="range"
                 min={priceBounds.min}
@@ -108,10 +92,11 @@ export function Filters({
                 className="w-full"
               />
             </div>
-            <div className="flex-1">
-              <label className="mb-1 block text-[11px] text-slate-500 dark:text-slate-400">
-                მაქს.
-              </label>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-[11px] text-charcoal-500 dark:text-charcoal-400">მაქსიმალური</label>
+                <span className="text-xs font-medium text-charcoal-700 dark:text-cream-200">{Math.round(value.maxPrice)} ₾</span>
+              </div>
               <input
                 type="range"
                 min={priceBounds.min}
@@ -122,33 +107,37 @@ export function Filters({
               />
             </div>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            {Math.round(value.minPrice)} ₾ – {Math.round(value.maxPrice)} ₾
-          </p>
+          <div className="px-4 py-3 bg-cream-200/30 dark:bg-charcoal-800/30 rounded-xl">
+            <p className="text-sm font-medium text-charcoal-900 dark:text-cream-50 text-center">
+              {Math.round(value.minPrice)} ₾ – {Math.round(value.maxPrice)} ₾
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-pressed={value.inStockOnly}
-            onClick={handleInStockToggle}
-            className={`flex h-5 w-9 items-center rounded-full border transition ${
-              value.inStockOnly
-                ? "border-primary-500 bg-primary-500"
-                : "border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700"
-            }`}
-          >
-            <span
-              className={`h-4 w-4 rounded-full bg-white shadow-sm transition ${
-                value.inStockOnly ? "translate-x-4" : "translate-x-0.5"
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-pressed={value.inStockOnly}
+              onClick={handleInStockToggle}
+              className={`relative w-11 h-6 rounded-full transition-colors ${
+                value.inStockOnly
+                  ? "bg-sage-500"
+                  : "bg-cream-300 dark:bg-charcoal-700"
               }`}
-            />
-          </button>
-          <span className="text-xs text-slate-600 dark:text-slate-300">
-            მხოლოდ მარაგში
-          </span>
+            >
+              <span
+                className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${
+                  value.inStockOnly ? "left-6" : "left-1"
+                }`}
+              />
+            </button>
+            <span className="text-sm text-charcoal-700 dark:text-charcoal-200">
+              მხოლოდ მარაგში
+            </span>
+          </div>
         </div>
 
         <button
@@ -161,13 +150,11 @@ export function Filters({
               inStockOnly: false,
             })
           }
-          className="text-xs font-medium text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
+          className="w-full px-4 py-2.5 text-xs font-medium text-charcoal-600 dark:text-charcoal-300 border border-cream-300 dark:border-charcoal-700 rounded-xl hover:bg-cream-200/50 dark:hover:bg-charcoal-800/50 transition-colors"
         >
-          გასუფთავება
+          ფილტრების გასუფთავება
         </button>
       </section>
     </aside>
   );
 }
-
-

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HiOutlineChevronRight, HiOutlineHome } from "react-icons/hi2";
 import type { ProductCategory } from "@/types/store";
 
 interface Crumb {
@@ -11,18 +12,13 @@ interface BreadcrumbsProps {
   productTitle?: string;
 }
 
-export function Breadcrumbs({
-  category,
-  productTitle,
-}: BreadcrumbsProps) {
-  const crumbs: Crumb[] = [
-    { label: "მაღაზია", href: "/" },
-  ];
+export function Breadcrumbs({ category, productTitle }: BreadcrumbsProps) {
+  const crumbs: Crumb[] = [{ label: "მთავარი", href: "/demo-store" }];
 
   if (category) {
     crumbs.push({
       label: category,
-      href: `/?category=${encodeURIComponent(category)}`,
+      href: `/demo-store?category=${encodeURIComponent(category)}`,
     });
   }
 
@@ -30,35 +26,32 @@ export function Breadcrumbs({
     crumbs.push({ label: productTitle });
   }
 
+  if (crumbs.length <= 1) return null;
+
   return (
-    <nav
-      aria-label="ნავიგაცია breadcrumb"
-      className="mb-4 text-xs text-slate-500 dark:text-slate-400"
-    >
-      <ol className="flex flex-wrap items-center gap-1">
+    <nav aria-label="ნავიგაცია" className="text-xs">
+      <ol className="flex flex-wrap items-center gap-1.5">
         {crumbs.map((crumb, index) => {
           const isLast = index === crumbs.length - 1;
 
-          if (isLast || !crumb.href) {
-            return (
-              <li key={crumb.label} className="flex items-center gap-1">
-                {index > 0 ? <span className="text-slate-400">/</span> : null}
-                <span className="font-medium text-slate-700 dark:text-slate-100">
+          return (
+            <li key={crumb.label} className="flex items-center gap-1.5">
+              {index > 0 && (
+                <HiOutlineChevronRight className="w-3 h-3 text-charcoal-300 dark:text-charcoal-600" />
+              )}
+              {isLast || !crumb.href ? (
+                <span className={`${isLast ? "text-charcoal-600 dark:text-charcoal-300" : "text-charcoal-400 dark:text-charcoal-500"} max-w-[150px] truncate`}>
                   {crumb.label}
                 </span>
-              </li>
-            );
-          }
-
-          return (
-            <li key={crumb.href} className="flex items-center gap-1">
-              {index > 0 ? <span className="text-slate-400">/</span> : null}
-              <Link
-                href={crumb.href}
-                className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-200"
-              >
-                {crumb.label}
-              </Link>
+              ) : (
+                <Link
+                  href={crumb.href}
+                  className="text-charcoal-500 dark:text-charcoal-400 hover:text-charcoal-900 dark:hover:text-cream-50 transition-colors flex items-center gap-1"
+                >
+                  {index === 0 && <HiOutlineHome className="w-3.5 h-3.5" />}
+                  <span>{crumb.label}</span>
+                </Link>
+              )}
             </li>
           );
         })}
@@ -66,5 +59,3 @@ export function Breadcrumbs({
     </nav>
   );
 }
-
-

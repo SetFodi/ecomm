@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 
 interface QuantitySelectorProps {
   value: number;
@@ -27,31 +28,34 @@ function QuantitySelectorComponent({
     onChange(next);
   };
 
+  const isAtMin = value <= min;
+  const isAtMax = value >= max;
+
   return (
-    <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-2 py-1 text-sm shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <div className="inline-flex items-center rounded-xl border border-cream-300 dark:border-charcoal-700 bg-cream-50 dark:bg-charcoal-900 overflow-hidden">
       <button
         type="button"
         onClick={handleDecrease}
+        disabled={isAtMin}
         aria-label="რაოდენობის შემცირება"
-        className="flex h-7 w-7 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+        className="flex h-10 w-10 items-center justify-center text-charcoal-600 dark:text-charcoal-300 transition hover:bg-cream-200 dark:hover:bg-charcoal-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
       >
-        -
+        <HiOutlineMinus className="w-4 h-4" />
       </button>
-      <span className="mx-3 min-w-[1.5rem] text-center text-sm font-medium text-slate-900 dark:text-slate-100">
+      <span className="w-12 text-center text-sm font-semibold text-charcoal-900 dark:text-cream-50 tabular-nums">
         {value}
       </span>
       <button
         type="button"
         onClick={handleIncrease}
+        disabled={isAtMax}
         aria-label="რაოდენობის გაზრდა"
-        className="flex h-7 w-7 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+        className="flex h-10 w-10 items-center justify-center text-charcoal-600 dark:text-charcoal-300 transition hover:bg-cream-200 dark:hover:bg-charcoal-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
       >
-        +
+        <HiOutlinePlus className="w-4 h-4" />
       </button>
     </div>
   );
 }
 
 export const QuantitySelector = memo(QuantitySelectorComponent);
-
-

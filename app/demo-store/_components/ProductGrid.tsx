@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { HiOutlineFaceFrown } from "react-icons/hi2";
 import type { Product } from "@/types/store";
 import { ProductCard } from "./ProductCard";
 
@@ -9,12 +10,15 @@ interface ProductGridProps {
 function ProductGridComponent({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 p-10 text-center dark:border-slate-700 dark:bg-slate-900/60">
-        <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
+      <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-cream-300 dark:border-charcoal-700 bg-cream-100/30 dark:bg-charcoal-900/30 p-12 text-center">
+        <div className="w-16 h-16 rounded-full bg-cream-200/50 dark:bg-charcoal-800/50 flex items-center justify-center mb-4">
+          <HiOutlineFaceFrown className="w-8 h-8 text-charcoal-400 dark:text-charcoal-500" />
+        </div>
+        <p className="text-base font-semibold text-charcoal-800 dark:text-cream-100">
           შედეგები ვერ მოიძებნა
         </p>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          სცადე სხვა ფილტრი, გასუფთავება ან საძიებო სიტყვა.
+        <p className="mt-2 text-sm text-charcoal-500 dark:text-charcoal-400 max-w-sm">
+          სცადე სხვა ფილტრი, გაასუფთავე საძიებო ველი ან აირჩიე სხვა კატეგორია
         </p>
       </div>
     );
@@ -22,17 +26,15 @@ function ProductGridComponent({ products }: ProductGridProps) {
 
   return (
     <div
-      className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       aria-live="polite"
       aria-label="პროდუქტების სია"
     >
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} index={index} />
       ))}
     </div>
   );
 }
 
 export const ProductGrid = memo(ProductGridComponent);
-
-

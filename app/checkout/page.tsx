@@ -1,4 +1,5 @@
-export { metadata } from "@/app/demo-store/checkout/page";
-export { default } from "@/app/demo-store/checkout/page";
+import { redirect } from "next/navigation";
 
-
+export default function CheckoutPage() {
+  redirect("/demo-store/checkout");
+}
